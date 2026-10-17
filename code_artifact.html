@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي الاحترافي | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- إعدادات Tailwind لتفعيل الوضع الليلي وتحديد الألوان والخطوط -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                             dark: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        /* مخصص لشريط التمرير */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22c55e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+    <!-- ===== 1. القائمة العلويّة (Navigation Bar) ===== -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- الشعار (Logo) -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-emerald-300 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+                        أ
+                    </div>
+                    <span class="text-xl font-black bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent dark:from-emerald-400 dark:to-teal-300">
+                        أحمد علي
+                    </span>
+                </a>
+
+                <!-- روابط القائمة الرئيسية (Desktop Menu) -->
+                <nav class="hidden md:flex items-center space-x-8 space-x-reverse font-semibold text-sm">
+                    <a href="#home" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors py-1">الرئيسية</a>
+                    <a href="#about" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors py-1">عنّي</a>
+                    <a href="#services" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors py-1">الخدمات</a>
+                    <a href="#portfolio" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors py-1">الأعمال</a>
+                    <a href="#contact" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors py-1">تواصل معي</a>
+                </nav>
+
+                <!-- أزرار الإجراءات (Theme Toggle + Mobile Menu Trigger) -->
+                <div class="flex items-center gap-3">
+                    <!-- زر تبديل المظهر (Dark/Light Switcher) -->
+                    <button id="themeToggle" aria-label="تبديل الوضع" class="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-amber-400 hover:ring-2 hover:ring-emerald-400 transition-all">
+                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+
+                    <!-- زر تواصل سريع (Desktop) -->
+                    <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md hover:shadow-emerald-500/30 transition-all">
+                        تراسل معي
+                    </a>
+
+                    <!-- زر القائمة للهواتف (Mobile Hamburger) -->
+                    <button id="mobileMenuBtn" aria-label="فتح القائمة" class="md:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قائمة الهواتف (Mobile Navigation Drawer) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block py-2 px-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold">الرئيسية</a>
+            <a href="#about" class="mobile-link block py-2 px-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold">عنّي</a>
+            <a href="#services" class="mobile-link block py-2 px-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold">الخدمات</a>
+            <a href="#portfolio" class="mobile-link block py-2 px-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold">الأعمال</a>
+            <a href="#contact" class="mobile-link block py-2 px-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold">تواصل معي</a>
+        </div>
+    </header>
+
+    <!-- ===== 2. قسم الرئيسية (Hero Section) ===== -->
+    <section id="home" class="relative py-20 lg:py-32 overflow-hidden">
+        <!-- خلفية جمالية ممتدة -->
+        <div class="absolute top-1/4 right-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- المحتوى النصي -->
+                <div class="space-y-6 text-center lg:text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold text-xs sm:text-sm border border-emerald-200 dark:border-emerald-800">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        متاح للعمل الحر والتعاقد
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                        مرحباً، أنا <span class="bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">أحمد علي</span>
+                        <br>مطور مواقع وواجهات مستخدم
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        أساعد الشركات والأفراد على تحويل أفكارهم إلى تجارب رقمية استثنائية وبناء مواقع ويب حديثة، سريعة ومتجاوبة مع كافة الشاشات بأحدث التقنيات.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#portfolio" class="px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/25 transition-all hover:-translate-y-0.5">
+                            استكشف أعمالي
+                        </a>
+                        <a href="#contact" class="px-8 py-3.5 rounded-xl border border-gray-300 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-800 font-bold transition-all">
+                            تواصل معي
+                        </a>
+                    </div>
+
+                    <!-- إحصائيات سريعة -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200 dark:border-slate-800 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-emerald-500">+5</p>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-slate-400">سنوات خبرة</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-emerald-500">+40</p>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-slate-400">مشروع ناجح</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-emerald-500">+25</p>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-slate-400">عميل سعيد</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الصورة/الرمز البصري (Avatar Grid) -->
+                <div class="flex justify-center relative">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-2 shadow-2xl shadow-emerald-500/20">
+                        <div class="w-full h-full bg-slate-900 rounded-[22px] overflow-hidden relative flex items-center justify-center">
+                            <!-- صورة رمزيّة توضيحية (يمكن استبدال رابط الصورة بـ src الخاص بك) -->
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" 
+                                 alt="صورة شخصية" 
+                                 class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x400/1e293b/22c55e?text=Dev+Avatar';">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 3. قسم عني والمهارات (About & Skills) ===== -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-2">نبذة عني</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">من أكون وماذا أقدم؟</p>
+                <div class="w-16 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- تفاصيل نبذة عني -->
+                <div class="space-y-5 text-gray-600 dark:text-slate-300 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        مطور ويب شغوف بتقديم أفضل الحلول البرمجية
+                    </h3>
+                    <p>
+                        أعمل كمهندس برمجيات متخصص في بناء وتطوير الواجهات الأمامية للويب (Frontend Development). أحب تبسيط المشكلات المعقدة وتحويلها إلى تطبيقات سهلة الاستخدام وممتعة بصرياً.
+                    </p>
+                    <p>
+                        أهتم بالتفاصيل الدقيقة مثل سرعة تحميل الموقع، التوافق مع كافة محركات البحث (SEO)، والالتزام بأحدث معايير تجربة المستخدم (UI/UX).
+                    </p>
+
+                    <!-- معلومات الاتصال السريعة -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-sm font-semibold text-gray-700 dark:text-slate-200">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-emerald-500"></i> الرياض، المملكة العربية السعودية</div>
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-envelope text-emerald-500"></i> ahmed@example.com</div>
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-phone text-emerald-500"></i> +966 50 000 0000</div>
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-language text-emerald-500"></i> العربية (الأصلية)، الإنجليزية</div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 text-white dark:bg-slate-800 dark:hover:bg-slate-700 font-bold hover:shadow-lg transition-all">
+                            <i class="fa-solid fa-download"></i>
+                            تحميل السيرة الذاتية (CV)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- المهارات والتقنيات (Skill Bars) -->
+                <div class="bg-gray-50 dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800 space-y-6">
+                    <h3 class="text-xl font-bold mb-4">مهاراتي التقنية</h3>
+
+                    <!-- skill 1 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between font-bold text-sm">
+                            <span>HTML5 & CSS3 / Tailwind CSS</span>
+                            <span class="text-emerald-500">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-2.5 rounded-full w-[95%]"></div>
+                        </div>
+                    </div>
+
+                    <!-- skill 2 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between font-bold text-sm">
+                            <span>JavaScript (ES6+) / TypeScript</span>
+                            <span class="text-emerald-500">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-2.5 rounded-full w-[90%]"></div>
+                        </div>
+                    </div>
+
+                    <!-- skill 3 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between font-bold text-sm">
+                            <span>React.js / Next.js</span>
+                            <span class="text-emerald-500">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-2.5 rounded-full w-[85%]"></div>
+                        </div>
+                    </div>
+
+                    <!-- skill 4 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between font-bold text-sm">
+                            <span>تصميم الواجهات (Figma / UI UX)</span>
+                            <span class="text-emerald-500">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-2.5 rounded-full w-[80%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== 4. قسم الخدمات (Services Section) ===== -->
+    <section id="services" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-2">خدماتي</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">ما الذي يمكنني تقديمه لك؟</p>
+                <div class="w-16 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- خدمة 1 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">تطوير المواقع والتطبيقات</h3>
+                    <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
+                        بناء مواقع ويب سريعة، متجاوبة ومخصصة تماماً لتناسب احتياجات نشاطك التجاري بأحدث التقنيات.
+                    </p>
+                </div>
+
+                <!-- خدمة 2 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">تصميم واجهات المستخدم (UI/UX)</h3>
+                    <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
+                        رسم وتصميم واجهات عصرية وجذابة تضمن سهولة الاستخدام للمستخدم النهائي وزيادة المبيعات.
+                    </p>
+                </div>
+
+                <!-- خدمة 3 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">تحسين أداء المواقع (SEO)</h3>
+                    <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
+                        تسريع تحميل الموقع، تحسين تجربة المستخدم وتهيئته لمحركات البحث للظهور في النتائج الأولى.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 5. قسم معرض الأعمال (Portfolio/Projects) ===== -->
+    <section id="portfolio" class="py-20 bg-white dark:bg-slate-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-2">معرض الأعمال</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">نماذج من أحدث مشاريعي</p>
+                <div class="w-16 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- أزرار تصفية المشاريع (Filter Buttons) -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterProjects('all')" class="filter-btn active px-5 py-2 rounded-xl text-sm font-bold bg-emerald-500 text-white transition-all">الكل</button>
+                <button onclick="filterProjects('web')" class="filter-btn px-5 py-2 rounded-xl text-sm font-bold bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all">مواقع ويب</button>
+                <button onclick="filterProjects('app')" class="filter-btn px-5 py-2 rounded-xl text-sm font-bold bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all">تطبيقات</button>
+                <button onclick="filterProjects('design')" class="filter-btn px-5 py-2 rounded-xl text-sm font-bold bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all">تصميم واجهات</button>
+            </div>
+
+            <!-- شبكة البطاقات (Project Cards Grid) -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- مشروع 1 -->
+                <div class="project-card bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-100 dark:border-slate-800 group hover:shadow-xl transition-all" data-category="web">
+                    <div class="relative overflow-hidden h-48 bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="منصة تجارة إلكترونية" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                            <button onclick="openModal('منصة تجارة إلكترونية متكاملة', 'منصة تسوق إلكتروني متكاملة تدعم بوابة الدفع الإلكتروني ولغتين مع لوحة تحكم كاملة.')" class="w-10 h-10 rounded-full bg-white text-emerald-600 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-emerald-500">موقع ويب</span>
+                        <h3 class="text-lg font-bold mt-1 mb-2">متجر متكامل للتجارة الإلكترونية</h3>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 line-clamp-2">تصميم وتطوير متجر إلكتروني يدعم الدفع والسلة ولغتين.</p>
+                    </div>
+                </div>
+
+                <!-- مشروع 2 -->
+                <div class="project-card bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-100 dark:border-slate-800 group hover:shadow-xl transition-all" data-category="app">
+                    <div class="relative overflow-hidden h-48 bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="تطبيق إدارة المهام" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                            <button onclick="openModal('تطبيق إدارة المهام اليومية', 'تطبيق ويب تفاعلي لإدارة وإنجاز المهام اليومية وتتبع الإنتاجية مع تنبيهات ومزامنة سحابية.')" class="w-10 h-10 rounded-full bg-white text-emerald-600 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-emerald-500">تطبيق ويب</span>
+                        <h3 class="text-lg font-bold mt-1 mb-2">تطبيق تنظيم وتتبع المهام</h3>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 line-clamp-2">لوحة تفاعلية لإدارة المشروعات والمهام اليومية بفعالية.</p>
+                    </div>
+                </div>
+
+                <!-- مشروع 3 -->
+                <div class="project-card bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-100 dark:border-slate-800 group hover:shadow-xl transition-all" data-category="design">
+                    <div class="relative overflow-hidden h-48 bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="تصميم تطبيق مطعم" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                            <button onclick="openModal('واجهات تطبيق طلبات الطعام', 'تصميم عصري وجذاب لواجهات تطبيق توصيل الطعام باستخدام Figma بالاعتماد على معايير UX الحديثة.')" class="w-10 h-10 rounded-full bg-white text-emerald-600 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-emerald-500">تصميم واجهات</span>
+                        <h3 class="text-lg font-bold mt-1 mb-2">تصميم واجهات تطبيق توصيل طعام</h3>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 line-clamp-2">تصميم تجربة مستخدم سلسة وعصرية لطلب المأكولات عبر الهاتف.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 6. قسم التواصل (Contact Section) ===== -->
+    <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-2">تواصل معي</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">هل لديك مشروع ترغب بنفيذه؟</p>
+                <div class="w-16 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <!-- معلومات التواصل -->
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-gray-100 dark:border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold">البريد الإلكتروني</p>
+                            <p class="font-bold text-sm sm:text-base">ahmed@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-gray-100 dark:border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold">الهاتف / واتساب</p>
+                            <p class="font-bold text-sm sm:text-base" dir="ltr">+966 50 000 0000</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-gray-100 dark:border-slate-800 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold">الموقع الجغرافي</p>
+                            <p class="font-bold text-sm sm:text-base">الرياض، المملكة العربية السعودية</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نموذج التواصل (Contact Form) -->
+                <div class="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-100 dark:border-slate-800">
+                    <form id="contactForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-600 dark:text-slate-300 mb-2">الاسم الكامل *</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all" placeholder="أدخل اسمك الكريم">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-600 dark:text-slate-300 mb-2">البريد الإلكتروني *</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all" placeholder="name@example.com">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 dark:text-slate-300 mb-2">موضوع الرسالة</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all" placeholder="عنوان الرسالة">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 dark:text-slate-300 mb-2">نص الرسالة *</label>
+                            <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all" placeholder="اكتب رسالتك هنا بالتفصيل..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all">
+                            إرسال الرسالة الآن
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 7. التذييل (Footer) ===== -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-gray-200 dark:border-slate-800 py-10 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                
+                <p class="text-xs text-gray-500 dark:text-slate-400">
+                    جميع الحقوق محفوظة © <span id="year"></span> | تم التطوير بـ <i class="fa-solid fa-heart text-red-500"></i> بواسطة أحمد علي
+                </p>
+
+                <!-- شبكات التواصل الاجتماعي -->
+                <div class="flex items-center space-x-4 space-x-reverse text-lg">
+                    <a href="#" aria-label="Github" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-600 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-600 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="X Twitter" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-600 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== 8. النافذة المنبثقة للتفاصيل (Project Modal) ===== -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 space-y-4 border border-gray-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modalTitle" class="text-xl font-bold"></h3>
+            <p id="modalDesc" class="text-sm text-gray-600 dark:text-slate-300 leading-relaxed"></p>
+            <div class="pt-4 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-emerald-500 text-white font-bold text-sm">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 9. الإشعار المخصص (Toast Alert Notification) ===== -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl border border-emerald-500 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+        <span id="toastMsg" class="text-sm font-semibold"></span>
+    </div>
+
+    <!-- ===== 10. نصوص البرمجة تفاعلية (JavaScript) ===== -->
+    <script>
+        // تحديث السنة التلقائية في التذييل
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 1. إدارة الوضع الليلي/النهاري (Dark / Light Mode)
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // التحقق من التفضيل المخزن سابقاً
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            themeIcon.className = 'fa-solid fa-sun text-lg';
+        } else {
+            document.documentElement.classList.add('dark');
+            themeIcon.className = 'fa-solid fa-moon text-lg';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun text-lg';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon text-lg';
+            }
+        });
+
+        // 2. إدارة قائمة الهواتف المحمولة (Mobile Drawer)
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // إغلاق قائمة الهواتف عند الضغط على أي رابط
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 3. تصفية الأعمال حسب التصنيف (Portfolio Filtering)
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            // تحديث تصميم الأزرار
+            btns.forEach(btn => {
+                btn.classList.remove('bg-emerald-500', 'text-white');
+                btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-slate-300');
+            });
+            event.target.classList.add('bg-emerald-500', 'text-white');
+
+            // إظهار وإخفاء البطاقات
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. التحكم بالنافذة المنبثقة للمشاريع (Project Modal)
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDesc').textContent = desc;
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        // 5. إدارة نموذج التواصل والتحقق من الحقول (Form Validation)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('يرجى ملء جميع الحقول المطلوبة.', 'error');
+                return;
+            }
+
+            // محاكاة نجاح الإرسال
+            showToast('شكراً لك! تم إرسال رسالتك بنجاح وسأتواصل معك قريباً.');
+            document.getElementById('contactForm').reset();
+        }
+
+        // 6. عرض رسائل الإشعار العصرية (Toast Notifications)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
